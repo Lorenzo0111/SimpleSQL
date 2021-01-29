@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id "com.github.johnrengelman.shadow" version "6.1.0"
 }
 
 group 'me.lorenzo0111'
@@ -33,4 +34,5 @@ publishing {
 
 dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
+    compileOnly 'org.jetbrains:annotations:15.0'
 }

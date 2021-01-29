@@ -1,10 +1,11 @@
 package me.lorenzo0111.mysql;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 @SuppressWarnings("unused")
-public class Connection {
+public final class Connection {
     private final java.sql.Connection connection;
 
     /**
@@ -39,5 +40,13 @@ public class Connection {
      */
     public java.sql.Connection getConnection() {
         return connection;
+    }
+
+    /**
+     * @param query MySQL query
+     * @return prepared statement
+     */
+    public PreparedStatement prepareStatement(String query) throws SQLException {
+        return this.connection.prepareStatement(query);
     }
 }
