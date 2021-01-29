@@ -8,11 +8,6 @@ version '1.0'
 
 repositories {
     mavenCentral()
-
-    maven {
-        url "https://gitlab.com/api/v4/projects/23996789/packages/maven"
-        name "GitLab"
-    }
 }
 
 publishing {
@@ -23,10 +18,11 @@ publishing {
     }
     repositories {
         maven {
-            url "https://gitlab.com/api/v4/projects/23996789/packages/maven"
+            url "https://gitlab.example.com/api/v4/groups/<group>/-/packages/maven"
+            name "GitLab"
             credentials(HttpHeaderCredentials) {
-                name = "Private-Token"
-                value = gitLabPrivateToken
+                name = 'Job-Token'
+                value = System.getenv("CI_JOB_TOKEN")
             }
             authentication {
                 header(HttpHeaderAuthentication)
