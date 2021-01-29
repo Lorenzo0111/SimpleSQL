@@ -18,7 +18,7 @@ publishing {
     }
     repositories {
         maven {
-            url "https://gitlab.example.com/api/v4/groups/<group>/-/packages/maven"
+            url "https://gitlab.example.com/api/v4/groups/23996789/-/packages/maven"
             name "GitLab"
             credentials(HttpHeaderCredentials) {
                 name = 'Job-Token'
