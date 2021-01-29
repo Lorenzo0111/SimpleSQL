@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @SuppressWarnings("unused")
@@ -72,5 +73,31 @@ public final class Table {
      */
     public void addColumn(TableItem item) throws SQLException {
         this.processItemStatement(item);
+    }
+
+    /**
+     * @return Content of the table
+     */
+    public ResultSet selectAll() throws SQLException {
+        final PreparedStatement statement = this.connection.prepareStatement("SELECT * FROM " + name + ";");
+        return statement.executeQuery();
+    }
+
+    /**
+     * @param elements Items to get
+     * @return Selected elements from the table
+     */
+    public ResultSet select(TableItem... elements) throws SQLException {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (TableItem item : elements) {
+            stringBuilder.append(item.getName()).append(",");
+        }
+
+        final String items = new StringBuffer(stringBuilder).deleteCharAt(stringBuilder.length() - 1).toString();
+
+        PreparedStatement statement = this.connection.prepareStatement("SELECT " + items + " FROM " + name + ";");
+
+        return statement.executeQuery();
     }
 }

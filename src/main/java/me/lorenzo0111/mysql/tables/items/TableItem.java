@@ -27,4 +27,12 @@ public final class TableItem {
     public ItemType getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "TableItem{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }
