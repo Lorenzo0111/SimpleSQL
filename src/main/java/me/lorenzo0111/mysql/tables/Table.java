@@ -128,6 +128,22 @@ public final class Table {
     }
 
     /**
+     * @param conditions List of conditions
+     * @return Result
+     */
+    public ResultSet selectWhere(Item... conditions) throws SQLException {
+        final StringBuilder stringBuilder = new StringBuilder("SELECT * FROM " + this.name + " WHERE ");
+
+        for (Item item : conditions) {
+            stringBuilder.append(item.getName()).append(" = '").append(item.getValue()).append("' AND ");
+        }
+
+        final PreparedStatement statement = this.connection.prepareStatement(new StringBuffer(stringBuilder).delete(stringBuilder.length() - 5, stringBuilder.length()) + ";");
+
+        return statement.executeQuery();
+    }
+
+    /**
      * @return List of TableItems of the table
      */
     public List<TableItem> getStructure() {
