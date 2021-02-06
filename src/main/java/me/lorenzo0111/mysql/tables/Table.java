@@ -199,4 +199,29 @@ public final class Table {
             return Result.ERROR;
         }
     }
+
+    /**
+     * Remove all elements from the table
+     */
+    public void removeAll() throws SQLException {
+        final PreparedStatement statement = this.connection.prepareStatement("DELETE FROM " + this.name);
+
+        statement.executeUpdate();
+    }
+
+    /**
+     * @param conditions Conditions
+     * @return either (1) the row count for SQL Data Manipulation Language (DML) statements or (2) 0 for SQL statements that return nothing
+     */
+    public int removeWhere(Item... conditions) throws SQLException {
+        final StringBuilder stringBuilder = new StringBuilder("DELETE FROM " + this.name + " WHERE ");
+
+        for (Item item : conditions) {
+            stringBuilder.append(item.getName()).append(" = '").append(item.getValue()).append("' AND ");
+        }
+
+        final PreparedStatement statement = this.connection.prepareStatement(new StringBuffer(stringBuilder).delete(stringBuilder.length() - 5, stringBuilder.length()) + ";");
+
+        return statement.executeUpdate();
+    }
 }
